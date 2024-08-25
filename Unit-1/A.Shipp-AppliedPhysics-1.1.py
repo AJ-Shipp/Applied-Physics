@@ -17,8 +17,9 @@ num = 0
 #  When num is equal to 5, first a space is added to outputT to separate the two words, second the element corresponding 
 #   to num's current value is added to outputT, and finally the index which corresponds to the position of the letter "o"
 #   in the array is selected by "text.index" and is then used to add another letter "o" to the outputT variable
-#  When num is greater than 5, the remaining elements in text are added to the outputT variable as well
-# Then the num integers value is increased by one at the end of each loop iteration  
+#  When num is greater than 5, the remaining elements in text are added to the end of the outputT variable 
+# Then the num integers value is increased by one at the end of each loop iteration
+#  The loop is finished after every   
 #===
 for letter in text:
     if num < 5:

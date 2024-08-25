@@ -3,16 +3,6 @@ Code written by AJ Shipp
 Applied Physics (PH306-01)
 """
 
-#In class notes
-"""
-print('hi')
-print("hello")
-# ============
-a=5.6
-b=7.78
-c=a+b
-print(c)
-"""
 ####
 # Creates variables for the two numerical inputs, then uses the "input" function and "int()" function to intake
 #  two numbers from the user and automatically asigns them the integer variable type
