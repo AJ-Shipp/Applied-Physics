@@ -19,7 +19,7 @@ num = 0
 #   in the array is selected by "text.index" and is then used to add another letter "o" to the outputT variable
 #  When num is greater than 5, the remaining elements in text are added to the end of the outputT variable 
 # Then the num integers value is increased by one at the end of each loop iteration
-#  The loop is finished after every   
+#  The loop is finished after every letter originally in the "text" array has been iterated through  
 #===
 for letter in text:
     if num < 5:
