@@ -14,13 +14,13 @@ g = 9.81 #[m/s]
 def calcDistFall(t,y):
     output = float()
 
-    if t <= 0:
+    if t <= 0:                      #: If no time has elapsed, the ball can't have fallen, so the program ends.
         print("That's not a proper input, please try again.")
         exit()
-    elif g*t**2 > y:
+    elif g*t**2 > y:                #: If the distance fallen is greater than the starting alt, the starting alt is output.
         dist = y
     else: 
-        dist = g*t**2
+        dist = g*t**2               #: In all other cases the distance fallen is output.
     return dist
 
 ####
