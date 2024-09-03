@@ -4,7 +4,11 @@ Applied Physics (PH306-01)
 """
 
 ####
-# Constants
+# Packages
+#===
+
+####
+# Variables & Constants
 #===
 
 
