@@ -28,9 +28,11 @@ def findLambda(mInput, nInput):
 ####
 # Work
 #===
+print()     #:Adds newline to separate output from filename
 for i in range(1,4):                #:Parses through the first 3 principal quantum numbers of the upper energy level
     for j in range(i+1,i+6):        #:Parses through each corresponding first 5 principal quantum numbers of the lower energy level
         lmb = findLambda(i,j)       #:Calls the findLambda function using the upper/lower energy levels' current values
         print('For m=%i and n=%i, the wavelength is: %s' %(i,j,lmb))    #Outputs the information calculated
         j += 1          #Iterates to the next lower energy level
+    print() #:Adds newline to separate output depending on the m-levels
     i += 1              #Iterates to the next upper energy level

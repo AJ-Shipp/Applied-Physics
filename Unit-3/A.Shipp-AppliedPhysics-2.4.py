@@ -19,7 +19,7 @@ numB = int(1)                   # Startup value 2
 ####
 # Work
 #===
-print('The terms in the Fibonacci sequence below 1000 are as follows: ')
+print('\nThe terms in the Fibonacci sequence below 1000 are as follows: ')
 
 while numCurr < 1000:
     print(numCurr)
