@@ -8,6 +8,7 @@ Applied Physics (PH306-01)
 #===
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import rcParams
 
 ####
 # Variables & Constants
@@ -65,9 +66,15 @@ checkLength(x,y)
 xAvg = findAvg(x)
 yAvg = findAvg(y)
 
-plt.scatter(x,y,marker='.')
+plt.scatter(x,y, s=1, norm='log')
+plt.title('Stellar Magnitudes vs Temperatures')
 plt.xlabel('Temperature [K]')
 plt.ylabel('Magnitude [m]')
+plt.yscale('log')
+plt.xscale('log')
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams.update({'font.size': 12})
+plt.rcParams['axes.linewidth'] = 2.0
 plt.show()
 
 ####
