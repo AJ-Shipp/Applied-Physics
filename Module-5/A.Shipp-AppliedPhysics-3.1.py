@@ -19,8 +19,7 @@ method = 0
 ####
 # Initializing Functions
 #===
-
-def checkInputType():
+def checkInputType():                   #:Changes file input based on method choice
     if method == 0:
         file = np.loadtxt(fileIn, float)    
         x = file[:,0]
@@ -32,18 +31,18 @@ def checkInputType():
     
     return x,y
 
-def checkLength(first,second):
+def checkLength(first,second):          #:Makes sure two lists are the same length
     l1 = len(first)
     l2 = len(second)
 
     if l1 == l2:
-        print('The two arrays have the same length of', l1, 'entries.')
+        print('The two arrays have the same length of', l1, 'entries.\n')
     else:
         print('The two arrays do not have the same length.')
     
     return
 
-def findAvg(dataList):
+def findAvg(dataList):                  #:Finds the average of a list of data
     numEntries = 0
     numSum = float()
     average = float()
@@ -61,16 +60,27 @@ def findAvg(dataList):
 ####
 # Work
 #===
-x,y = checkInputType()
+"""
+Creates lists of x and y values. 
+Tests their lengths against one another. 
+Then finds the averages.
+"""
+x,y = checkInputType()          
 checkLength(x,y)
 xAvg = findAvg(x)
 yAvg = findAvg(y)
 
-plt.scatter(x,y, s=1, norm='log')
+
+"""
+Plotting
+"""
+plt.scatter(x,y, s=1)                               
+plt.xlim(2000,12000)
+plt.gca().invert_xaxis()
+plt.gca().invert_yaxis()
 plt.title('Stellar Magnitudes vs Temperatures')
 plt.xlabel('Temperature [K]')
 plt.ylabel('Magnitude [m]')
-plt.yscale('log')
 plt.xscale('log')
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams.update({'font.size': 12})
