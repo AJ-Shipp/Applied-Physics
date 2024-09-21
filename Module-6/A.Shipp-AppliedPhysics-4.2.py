@@ -30,14 +30,17 @@ def checkDimensions(r1,d1,r2,d2):
     if d1 != r2 and d2 == r1:
         print(
             'The matrices cannot be multiplied like this, but using the transpose of the second matrix would work.')
-        tryT = input('Would you like to do this instead? If so, please enter 1, if not enter 0.')
+        tryT = int(input('Would you like to do this instead? If so, please enter 1, if not enter 0. '))
         if tryT == 1:
             canPass = True
             tryTranspose = True
+    else:
+        print("These matrices cannot be multiplied by one another.")
     return canPass, tryTranspose
 
 def mtrxMult(matrix1,matrix2,methodNum):
     mtrxOut = []
+    timer = time.time()
     if methodNum == 1:
         mtrxOut = matrix1 @ matrix2
     if methodNum == 2:
@@ -61,15 +64,26 @@ while passAllow == False:
     rowFirst,columnFirst = input('Enter the numbers of rows and columns for matrix one with a space between the two numbers: ').split()
     rowSecond,columnSecond = input('Now, enter the numbers of rows and columns for matrix two with a space between the two numbers: ').split()
     
-    checkDimensions(rowFirst,columnFirst,rowSecond,columnSecond)
+    passAllow,tryTranspose = checkDimensions(rowFirst,columnFirst,rowSecond,columnSecond)
     
     m1 = np.random.rand(int(rowFirst),int(columnFirst))
     m2 = np.random.rand(int(rowSecond),int(columnSecond))
 
+"""
+Finding the multiplication matrix using each separate method
+"""
+if tryTranspose == False:
+    mtrxA,mtrxB = m1,m2
+    mtrxMult(mtrxA,mtrxB,1)
+elif tryTranspose == True:
+    mtrxA,mtrxB = m2,m1
+    mtrxMult()
+
+
 ####
 # Output Statements
 #===
-print(m1,'\n',m2)
+print(m1,'\n\n',m2)
 
 
 
