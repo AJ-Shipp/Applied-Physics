@@ -21,16 +21,18 @@ validIn = False
 ####
 # Initializing Functions
 #===
-def checkInput(inp):
+def checkInput(inp=str()):
     out = False
     mtrx = np.array([])
-    if inp == 'a' or 'b' or 'c':
+    input = inp.lower()
+
+    if input == 'a' or 'b' or 'c':
         out = True
-        if inp == 'a':
+        if input == 'a':
             mtrx = mtrxA
-        elif inp == 'b':
+        elif input == 'b':
             mtrx = mtrxB
-        elif inp == 'c':
+        elif input == 'c':
             mtrx = mtrxC
     return out, mtrx
 
@@ -49,9 +51,9 @@ diag = lna.matmul(lna.matmul(invEigVec,mtrx),eigVec)
 ####
 # Output Statements
 #===
-print("1",mtrx)
-print("2",inv)
-print("3",eigVal)
-print("4",eigVec)
-print("5",invEigVec)
-print("6",np.round(diag))
+
+print(
+    "\nFor Choice {}: \nThe base matrix is: \n{} \n\nThe inverse matrix is: \n{}"
+    "\n\nThe eigenvalues are: \n{} \n\nThe eigenvector matrix is: \n{} \n\nThe inverse eignenvector matrix is: \n{}"
+    "\n\nAnd finally the diagonal matrix is: \n{}\n".format(select.capitalize(),mtrx,inv,eigVal,eigVec,invEigVec,np.round(diag))
+    )
