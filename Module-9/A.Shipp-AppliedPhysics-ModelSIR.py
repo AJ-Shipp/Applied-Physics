@@ -18,7 +18,7 @@ from scipy.integrate import odeint
 MU = 0.1
 BETA = 0.5
 
-totalIdvs = 100
+totalIdvs = 1000
 initI = 1
 initR = 0
 initS = totalIdvs-initI-initR
@@ -56,8 +56,9 @@ plt.plot(time,valI,color='black',label='Removed')
 plt.plot(time,valR,color='red',label='Infected')
 plt.grid()
 plt.legend()
-plt.xlabel('Time Elapsed (days)')
-plt.ylabel('Polulation Groups')
+plt.title('SIR Model (N=1000, µ=0.10, ß=0.50)',fontsize=25)
+plt.xlabel('Time Elapsed (days)',fontsize=20)
+plt.ylabel('Polulation Groups',fontsize=20)
 plt.show()
 
 
