@@ -20,7 +20,7 @@ OMEGA = 1000            #:Hz
 CAP = 1e-6              #:Micro-Farads
 VLT1 = 100              #:Volts
 INDCT = 1               #:Henrys
-CRRNT1,CRRNT2,CRRNT3 = 1,1,1
+CRRNT1,CRRNT2,CRRNT3 = 1,1,1    #:Amps
 
 circuitCAP = np.array([[CRRNT1,-CRRNT2,-CRRNT3],[RES1,RES2,0],[0,RES2,-1j/(OMEGA*CAP)]],dtype=complex)
 circuitINDCT = np.array([[CRRNT1,-CRRNT2,-CRRNT3],[RES1,RES2,0],[0,RES2,1j*OMEGA*INDCT]],dtype=complex)
