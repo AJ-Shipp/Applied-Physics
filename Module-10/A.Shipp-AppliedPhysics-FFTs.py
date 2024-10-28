@@ -7,6 +7,7 @@ Applied Physics (PH306-01)
 # Packages
 #===
 import numpy as np
+from numpy import pi,sin,cos
 import numpy.fft as fft
 import matplotlib.pyplot as plt
 
@@ -17,8 +18,7 @@ F1 = 40                 #:Hertz
 F2 = 80                 #:Hertz
 tInit = 0.0             #:Seconds
 tFinal = 0.5            #:Seconds
-amp1 = 1
-amp2 = 2
+amp1,amp2 = 1,0.5
 numBoxes = 2000
 tSpaces = np.linspace(tInit,tFinal,numBoxes)
 
@@ -26,64 +26,83 @@ tSpaces = np.linspace(tInit,tFinal,numBoxes)
 # Initializing Functions
 #===
 def findOmega(freq):
-    omega = 2*np.pi*freq
+    omega = 2*pi*freq
     return omega
 
 def findFunc(omega1,omega2,time,a1,a2):
-    func = a1*np.sin(omega1*time) + a2*np.sin(omega2*time)
-
-    return
+    func = a1*sin(omega1*time) + a2*sin(omega2*time)
+    return func
 
 ####
 # Work
 #===
-wave = findFunc(findOmega(F1),findOmega(F2),tSpaces,amp1,amp2)
+omeg1,omeg2 = findOmega(F1),findOmega(F2)
+wave = findFunc(omeg1,omeg2,tSpaces,amp1,amp2)
 
-t = np.linspace(0,0.5,numBoxes)
-w = amp1*np.sin(2*np.pi*F1*t)+amp2*np.sin(2*np.pi*F2*t)
+fftOut = fft.rfft(wave)                 #: Finding the FFT
+
+rtSamples = tSpaces[1]-tSpaces[0]       #: Sampling rate we chose
+numTSamples = tSpaces.size              #: Number of time samples
+
+#:Part 1 
+absFFT = np.abs(fftOut)/numTSamples     #: Absolute Value of the values in the FFT
+freq = np.arange(0,2002,2)              #: The matching frequency array
+
+# 3. "Filter" the low-frequency component
+fftOutFiltered = fftOut
+for i in range(len(fftOutFiltered)):
+    
+    if fftOutFiltered[i] > 31.35:
+        fftOutFiltered[i] = (fftOutFiltered[i-1] + fftOutFiltered[i+1])/2
+
+# 4. Feed the filtered FFT to irfft()
+invFFT = fft.irfft(fftOut)
+invFFTFiltered = fft.irfft(fftOutFiltered)
+
 
 ####
 # Output Statements
 #===
-#plt.plot(t,w)
-#plt.show()
 
-# Now onto the FFT
-fftOut = fft.rfft(w) 
+#:Part 1 Outputs and Graphs 
+plt.plot(tSpaces,wave)
+plt.title('Created Time-Domain Function',fontsize=15)
+plt.xlabel('Time (s)')
+plt.ylabel('Amplitude')
+plt.show()
 
-print(len(fftOut))
-T=t[1]-t[0]     # sampling rate we chose
-N=t.size        # number of time samples
-print(t.size)
+#:Part 2 Outputs and Graphs 
+print('The length of the frequency array is: ',len(freq))
+print('The length of the Time-Domain function is: ',len(wave))
+print('The length of the Fast Fourier Transform is: ',len(fftOut))
+print('The sampling rate is every %.1f seconds and the frequencies are %d and %d Hertz'%((tFinal-tInit),F1,F2))
+print('The lengths of f and abs(f) are: %.4f and %.4f.'%(len(fftOut),len(absFFT)))
+print('The values for f(N/2) and abs(fft(N/2)) would be specific values rather than lengths')
 
-#1. First we neeed to calculate the absolute value of fftOut, and divide by the number of samples
-absFFT = np.abs(fftOut)/N           # these steps are part of the fft algorithm being used
-print(len(absFFT))
-
-#plt.plot(fftOut)
-#plt.show()
-
-#2. We need to associate a frequency (f) with the coefficients
-# Calculate Delta f; this is the frequency spacing for the absFFT array/list
-# Expect to obtain Delta f= 2Hz
-for i in range(50):
-    print("%d  %.3f and %.3f"%(i,absFFT[i],absFFT[i]))     # num20=0.5 -> 40 Hz, and num40=1 -> 80Hz
-
-# let's make the matching frequency array 
-
-freq = np.arange(0,2002,2)
-print(freq)
-print('length of freq array',len(freq))
-#quit()
-
-plt.plot(freq,absFFT)
-plt.xlabel('Frequency')
-plt.ylabel('FFT')
+plt.plot(fftOut)
+plt.title('Base FFT (f:0-100)',fontsize=15)
+plt.xlabel('Frequency Range')
+plt.ylabel('FFT Amplitudes')
 plt.xlim(0,100)
 plt.show()
 
-# 3. "Filter" the low-frequency component
-# Note: filter the FFT itself, not the absolute value
+plt.plot(freq,absFFT)
+plt.title('Absolute Values of FFT (f:0-100)',fontsize=15)
+plt.xlabel('Frequency Range')
+plt.ylabel('FFT Amplitudes')
+plt.xlim(0,100)
+plt.show()
 
-# 4. Feed the filtered FFT to irfft()
-# This will look like a SHO at 80 Hz
+
+#:Part 3 Outputs and Graphs 
+print('For the first 25 values: ')
+for i in range(25):
+    print("%d %.5f, %.5f, and %.5f"%(i,freq[i],fftOut[i],absFFT[i]))
+
+
+#:Part 4 Outputs and Graphs 
+plt.plot(invFFTFiltered)
+plt.title('Filtered FFT (f:0-100)',fontsize=15)
+plt.xlabel('Frequency Range')
+plt.ylabel('FFT Amplitudes')
+plt.show()
