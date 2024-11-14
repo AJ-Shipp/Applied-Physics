@@ -10,6 +10,8 @@ import numpy as np
 import scipy as sci
 import scipy.stats as scst
 import matplotlib.pyplot as plt
+from numpy import quantile as qn
+from numpy import where as w
 
 
 ####
@@ -19,8 +21,6 @@ mu = 100
 sigma = 15
 numSamples = 1000
 
-
-# A=ss.norm(ous)
 ####
 # Initializing Functions
 #===
@@ -29,8 +29,8 @@ def findRVS(average,deviation,numTotal):
     
     return imgPlot
 
-def findPDF(average,deviation):
-    imgPlot = scst.norm.pdf(loc=average, scale=deviation)
+def findPDF(xVals,average,deviation):
+    imgPlot = scst.norm.pdf(xVals, loc=average, scale=deviation)
     
     return imgPlot
 
@@ -39,56 +39,37 @@ def findPDF(average,deviation):
 # Work
 #===
 
-
-
-
-"""
-"""
-
-####
-# In-Class Work
-#===
-
-mu = 100
-sigma = 15
-numSamples = 1000
-
-A = scst.norm.rvs(loc=mu, scale=sigma, size=numSamples)
-print(A)
-
-plt.hist(A,bins=20,density=True)
-
-# overplot the expected pdf
-# accomplish this with scst.norm.pdf
-
-x=np.linspace(0,200,1000)
-y=scst.norm.pdf(x,loc=mu,scale=sigma)
-plt.plot(x,y)
-plt.show()
-
-# there are two ways to get the 0.05, 0.95, and 0.5 quantiles
-# use np.quantile()
-
-# The direct (and harder) way: order the measurements, and leave 0.05% to the left, 50% to the left, 
-#   and 95% to the left to find the quantiles 
-# 
-ASort = np.sort(A)
-print(ASort)
-
-"""
-"""
-
-
-
-
-
-
-
+dataRVS = findRVS(mu,sigma,numSamples)
+dataX = np.linspace(0,200,1000)
+dataY = findPDF(dataX,mu,sigma)
+dataSortRVS = np.sort(dataRVS)
 
 ####
 # Output Statements
 #===
 
+print(
+    "This will be a random Gaussian simulation with: \n"
+    "Sample Size = {:n}\n"
+    "Average = {:n}\n"
+    "Error = {:n}\n"
+    "\n"
+    "| Length            | =   {:n}   \n"
+    "| Lower 5% Position | =   {:n}   \n"
+    "| Lower 5% Value    | =   {:.2f} \n"
+    "| Upper 5% Position | =   {:n}   \n"
+    "| Upper 5% Value    | =   {:.2f} \n"
+    "| Median Position   | =   {:n}   \n"
+    "| Median Value      | =   {:.2f} \n"
+    "| Upper Error       | =   {:.2f} \n"
+    "| Lower Error       | =   {:.2f} \n"
+    .format(numSamples,sigma,mu,len(dataSortRVS),len(dataSortRVS)*0.05,qn(dataSortRVS,0.05),len(dataSortRVS)*0.95,qn(dataSortRVS,0.95),
+            len(dataSortRVS)*0.5,qn(dataSortRVS,0.5),qn(dataSortRVS,0.5)-qn(dataSortRVS,0.05),qn(dataSortRVS,0.95)-qn(dataSortRVS,0.5))
+    )
+
+plt.hist(dataRVS,bins=20,density=True)
+plt.plot(dataX,dataY)
+plt.show()
 
 """
 Needs:
