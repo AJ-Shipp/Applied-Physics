@@ -21,6 +21,7 @@ mu = 100
 sigma = 15
 numSamples = 1000
 
+
 ####
 # Initializing Functions
 #===
@@ -38,18 +39,17 @@ def findPDF(xVals,average,deviation):
 ####
 # Work
 #===
-
 dataRVS = findRVS(mu,sigma,numSamples)
 dataX = np.linspace(0,200,1000)
 dataY = findPDF(dataX,mu,sigma)
 dataSortRVS = np.sort(dataRVS)
 
+
 ####
 # Output Statements
 #===
-
 print(
-    "This will be a random Gaussian simulation with: \n"
+    "\nThis will be a random Gaussian simulation with: \n"
     "Sample Size = {:n}\n"
     "Average = {:n}\n"
     "Error = {:n}\n"
@@ -69,6 +69,8 @@ print(
 
 plt.hist(dataRVS,bins=20,density=True)
 plt.plot(dataX,dataY)
+plt.xlabel("Observed Value")
+plt.ylabel("Probability Density")
 plt.show()
 
 """

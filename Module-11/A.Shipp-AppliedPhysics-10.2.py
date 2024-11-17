@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 #===
 numSamples = 10000
 
+
 ####
 # Initializing Functions
 #===
@@ -35,6 +36,7 @@ def findPDF(xVals,average,deviation):
     
     return imgPlot
 
+
 ####
 # Work
 #===
@@ -51,11 +53,12 @@ dataX = np.linspace(0,20,10000)
 dataY = findPDF(dataX,median,stdDev)
 dataSortRVS = np.sort(dataRVS)
 
+
 ####
 # Output Statements
 #===
 print(
-    "From my Simulation: \n"
+    "\nFrom my Simulation: \n"
     "| Standard Deviation  | =   {:.2f} \n"
     "| Median              | =   {:.2f} \n"
     "| Confidence Interval | =   {:.2f} to {:.2f} \n\n"
@@ -67,4 +70,6 @@ print(
 
 plt.hist(dataRVS,bins=200,density=True)
 plt.plot(dataX,dataY)
+plt.xlabel("Sum of Variables")
+plt.ylabel("PDF of the Sum")
 plt.show()
